@@ -1,0 +1,5 @@
+
+c	php:S1192"ODefine a constant instead of duplicating this literal "COUNT(id) as c" 3 times.(щ�k
+g	php:S1192*"SDefine a constant instead of duplicating this literal "backend/dashboard-" 3 times.(�܎
+s	php:S1488h"^Immediately return this expression instead of assigning it to the temporary variable "$query".(ףф
+s	php:S1488t"^Immediately return this expression instead of assigning it to the temporary variable "$query".(ףф
