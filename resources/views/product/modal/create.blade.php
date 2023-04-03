@@ -37,7 +37,7 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <a href="{{ route('product_units.create') }}" data-reload="false"
+                <a href="" data-reload="false"
                     data-title="{{ _lang('Add Product Unit') }}" class="ajax-modal-2 select2-add"><i
                         class="ti-plus"></i> {{ _lang('Add New') }}</a>
                 <label class="control-label">{{ _lang('Product Unit') }}</label>

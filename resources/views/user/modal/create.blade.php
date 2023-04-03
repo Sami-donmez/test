@@ -5,14 +5,19 @@
     <div class="row p-2">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label">{{ _lang('Name') }}</label>
+                <label class="control-label">{{ _lang('Voornaam Achternaam') }}</label>
                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
             </div>
         </div>
-
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label">{{ _lang('Email') }}</label>
+                <label class="control-label">{{ _lang('Functietitel') }}</label>
+                <input type="text" class="form-control" name="title" value="{{ old('title') }}" required>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">{{ _lang('E-mailadres*') }}</label>
                 <input type="text" class="form-control" name="email" value="{{ old('email') }}" required>
             </div>
         </div>
@@ -20,17 +25,12 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label">{{ _lang('Password') }}</label>
+                <label class="control-label">{{ _lang('Wachtwoord') }}</label>
                 <input type="password" class="form-control" name="password" value="{{ old('password') }}" required>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="control-label">{{ _lang('Valid To') }}</label>
-                <input type="text" class="form-control datepicker" name="valid_to" value="{{ old('valid_to') }}">
-            </div>
-        </div>
+
 
         <div class="col-md-6">
             <div class="form-group">
@@ -43,31 +43,18 @@
                 </select>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label">{{ _lang('Status') }}</label>
-                <select class="form-control select2 auto-select" data-selected="{{ old('status') }}" name="status"
+                <label class="control-label">{{ _lang('Branches') }}</label>
+                <select class="form-control select2 auto-select" data-selected="{{ old('user_type') }}" name="user_type"
                     required>
                     <option value="">{{ _lang('Select One') }}</option>
-                    <option value="1">{{ _lang('Active') }}</option>
-                    <option value="0">{{ _lang('In Active') }}</option>
+                    <option value="lagaranta">{{ _lang('Lagaranta') }}</option>
+                    <option value="nederhoje">{{ _lang('Nederhoje') }}</option>
+                    <option value="bid">{{ _lang('BID') }}</option>
                 </select>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="control-label">{{ _lang('Membership Type') }}</label>
-                <select class="form-control select2 auto-select" data-selected="{{ old('membership_type') }}"
-                    name="membership_type" required>
-                    <option value="">{{ _lang('Select One') }}</option>
-                    <option value="trial">{{ _lang('Trial') }}</option>
-                    <option value="member">{{ _lang('Member') }}</option>
-                </select>
-            </div>
-        </div>
-
         <div class="col-md-12">
             <div class="form-group">
                 <label class="control-label">{{ _lang('Profile Picture') }}</label>
@@ -78,7 +65,7 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                
+
                 <button type="submit" class="btn btn-primary btn-lg"><i class="ti-save"></i> {{ _lang('Save Changes') }}</button>
             </div>
         </div>

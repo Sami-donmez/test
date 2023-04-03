@@ -17,7 +17,7 @@ class CreateContactGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name',50);
             $table->text('note')->nullable();
-            $table->bigInteger('company_id');
+            $table->foreignId('company_id')->constrained('companies');
             $table->timestamps();
         });
     }

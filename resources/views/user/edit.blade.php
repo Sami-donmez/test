@@ -48,41 +48,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('User Type') }}</label>
-                                <div class="col-xl-9">
-                                    <select class="form-control auto-select"
-                                        data-selected="{{ $user->user_type }}" name="user_type" required>
-                                        <option value="">{{ _lang('Select One') }}</option>
-                                        <option value="admin">{{ _lang('Admin') }}</option>
-                                        <option value="user">{{ _lang('User') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('Status') }}</label>
-                                <div class="col-xl-9">
-                                    <select class="form-control auto-select" data-selected="{{ $user->status }}"
-                                        name="status" required>
-                                        <option value="">{{ _lang('Select One') }}</option>
-                                        <option value="1">{{ _lang('Active') }}</option>
-                                        <option value="0">{{ _lang('In Active') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('Membership Type') }}</label>
-                                <div class="col-xl-9">
-                                    <select class="form-control auto-select"
-                                        data-selected="{{ $user->membership_type }}" name="membership_type" required>
-                                        <option value="">{{ _lang('Select One') }}</option>
-                                        <option value="trial">{{ _lang('Trial') }}</option>
-                                        <option value="member">{{ _lang('Member') }}</option>
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label class="col-xl-3 col-form-label">{{ _lang('Profile Picture') }}</label>
@@ -98,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                </form>    
+                </form>
             </div>
         </div>
     </div>

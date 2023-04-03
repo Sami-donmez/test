@@ -15,15 +15,15 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('item_id');
-            $table->bigInteger('supplier_id')->nullable();
+            $table->string('name');
+            $table->foreignId('supplier_id')->nullable()->constrained('suppliers');
             $table->decimal('product_cost',10,2);
             $table->decimal('product_price',10,2);
             $table->string('product_unit',20);
             $table->string('tax_method',10);
             $table->bigInteger('tax_id')->nullable();
             $table->text('description')->nullable();
-            $table->bigInteger('company_id');
+            $table->foreignId('company_id')->constrained('companies');
             $table->timestamps();
         });
     }

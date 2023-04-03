@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Invoice;
-use App\Mail\GeneralMail;
 use App\Models\Contact;
 use App\Models\User;
-use App\Quotation;
-use App\Transaction;
-use App\Utilities\Overrider;
-use DataTables;
-use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class ContactController extends Controller {
 
@@ -39,9 +33,9 @@ class ContactController extends Controller {
             })
 
             ->addColumn('action', function ($contact) {
-                return '<form action="' . action('ContactController@destroy', $contact['id']) . '" class="text-center" method="post">'
-                . '<a href="' . action('ContactController@show', $contact['id']) . '" class="btn btn-primary btn-sm"><i class="ti-eye"></i></a> '
-                . '<a href="' . action('ContactController@edit', $contact['id']) . '" class="btn btn-warning btn-sm"><i class="ti-pencil-alt"></i></a> '
+                return ''
+                . '<a href="" class="btn btn-primary btn-sm"><i class="ti-eye"></i></a> '
+                . '<a href="" class="btn btn-warning btn-sm"><i class="ti-pencil-alt"></i></a> '
                 . csrf_field()
                     . '<input name="_method" type="hidden" value="DELETE">'
                     . '<button class="btn btn-danger btn-sm btn-remove" type="submit"><i class="ti-trash"></i></button>'
@@ -82,20 +76,11 @@ class ContactController extends Controller {
             'contact_phone' => 'nullable|max:20',
             'country'       => 'nullable|max:50',
             'city'          => 'nullable|max:50',
-            'state'         => 'nullable|max:50',
-            'zip'           => 'nullable|max:20',
             'contact_image' => 'nullable|image||max:5120',
-            'name'          => 'required_if:client_login,1|max:191', //User Login Attribute
-            'email'         => 'required_if:client_login,1|email|unique:users|max:191', //User Login Attribute
-            'password'      => 'required_if:client_login,1|max:20|min:6|confirmed', //User Login Attribute
-            'status'        => 'required_if:client_login,1', //User Login Attribute
-        ], [
-            'name.required_if'     => 'Name is required',
-            'email.required_if'    => 'Email is required',
-            'password.required_if' => 'Password is required',
-        ]);
+                    ]);
 
         if ($validator->fails()) {
+
             if ($request->ajax()) {
                 return response()->json(['result' => 'error', 'message' => $validator->errors()->all()]);
             } else {
@@ -113,16 +98,6 @@ class ContactController extends Controller {
         }
 
         //Create Login details
-        if ($request->client_login == 1) {
-            $user             = new User();
-            $user->name       = $request->input('name');
-            $user->email      = $request->input('email');
-            $user->password   = Hash::make($request->password);
-            $user->user_type  = 'client';
-            $user->status     = $request->input('status');
-            $user->company_id = company_id();
-            $user->save();
-        }
 
         $contact                = new Contact();
         $contact->profile_type  = $request->input('profile_type');
@@ -132,23 +107,16 @@ class ContactController extends Controller {
         $contact->contact_phone = $request->input('contact_phone');
         $contact->country       = $request->input('country');
         $contact->city          = $request->input('city');
-        $contact->state         = $request->input('state');
-        $contact->zip           = $request->input('zip');
         $contact->address       = $request->input('address');
-        $contact->facebook      = $request->input('facebook');
-        $contact->twitter       = $request->input('twitter');
-        $contact->linkedin      = $request->input('linkedin');
         $contact->remarks       = $request->input('remarks');
-        if ($request->client_login == 1) {
-            $contact->user_id = $user->id;
-        }
+        $contact->company_id = 1;
         $contact->group_id      = $request->input('group_id');
         $contact->contact_image = $contact_image;
 
         $contact->save();
 
         if (!$request->ajax()) {
-            return redirect()->route('contacts.show', $contact->id)->with('success', _lang('New client added sucessfully'));
+            return redirect()->route('contacts', $contact->id)->with('success', _lang('New client added sucessfully'));
         } else {
             return response()->json(['result' => 'success', 'action' => 'store', 'message' => _lang('New client added sucessfully'), 'data' => $contact]);
         }

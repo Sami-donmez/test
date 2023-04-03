@@ -32,7 +32,7 @@ class CreateContactsTable extends Migration
 			$table->string('contact_image')->nullable();
             $table->bigInteger('group_id');
             $table->bigInteger('user_id')->nullable();
-            $table->bigInteger('company_id');
+            $table->foreignId('company_id')->constrained('companies');
             $table->timestamps();
         });
     }

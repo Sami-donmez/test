@@ -1,9 +1,5 @@
 CREATE TABLE `tasks` (
   `task_id` int(11) NOT NULL AUTO_INCREMENT,
-  `task_importid` varchar(100) DEFAULT NULL,
-  `task_position` double NOT NULL COMMENT 'increment by 16384',
-  `task_created` datetime DEFAULT NULL COMMENT 'always now()',
-  `task_updated` datetime DEFAULT NULL,
   `task_creatorid` int(11) DEFAULT NULL,
   `task_clientid` int(11) DEFAULT NULL COMMENT 'optional',
   `task_projectid` int(11) DEFAULT NULL COMMENT 'project_id',

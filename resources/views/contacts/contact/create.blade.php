@@ -46,7 +46,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">{{ _lang('Contact Email') }}</label>
-                                <input type="text" class="form-control" name="contact_email"
+                                <input type="email" class="form-control" name="contact_email"
                                     value="{{ old('contact_email') }}" required>
                             </div>
                         </div>
@@ -85,19 +85,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('State') }}</label>
-                                <input type="text" class="form-control" name="state" value="{{ old('state') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Zip') }}</label>
-                                <input type="text" class="form-control" name="zip" value="{{ old('zip') }}">
-                            </div>
-                        </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
@@ -113,26 +100,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Facebook') }}</label>
-                                <input type="text" class="form-control" name="facebook" value="{{ old('facebook') }}">
-                            </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Twitter') }}</label>
-                                <input type="text" class="form-control" name="twitter" value="{{ old('twitter') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Linkedin') }}</label>
-                                <input type="text" class="form-control" name="linkedin" value="{{ old('linkedin') }}">
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -157,58 +125,6 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="togglebutton">
-                        <h4 class="header-title d-flex align-items-center">{{ _lang('Login Details') }}&nbsp;&nbsp;
-                            <input type="checkbox" id="client_login" value="1" name="client_login">
-                        </h4>
-                    </div>
-                </div>
-
-                <div class="card-body" id="client_login_card">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Name') }}</label>
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Email') }}</label>
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Password') }}</label>
-                                <input type="password" class="form-control" name="password">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Confirm Password') }}</label>
-                                <input type="password" class="form-control" name="password_confirmation">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">{{ _lang('Status') }}</label>
-                                <select class="form-control" name="status">
-                                    <option value="1">{{ _lang('Active') }}</option>
-                                    <option value="0">{{ _lang('Inactive') }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="col-md-12 mt-4">
             <button type="submit" class="btn btn-primary btn-lg"><i class="ti-save"></i> {{ _lang('Save Contact') }}</button>

@@ -16,8 +16,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $items = Item::where("item_type", "product")
-            ->orderBy("id", "desc")->get();
+        $items = Product::orderBy("id", "desc")->get();
         return view('product.list', compact('items'));
     }
 
@@ -59,7 +58,7 @@ class ProductController extends Controller {
         }
 
         //Create Item
-        $item            = new Item();
+        $item            = new Product();
         $item->item_name = $request->input('item_name');
         $item->item_type = 'product';
         $item->save();
@@ -96,7 +95,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id) {
-        $item = Item::find($id);
+        $item = Product::find($id);
 
         if (!$request->ajax()) {
             return view('product.view', compact('item', 'id'));
@@ -113,7 +112,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id) {
-        $item = Item::find($id);
+        $item = Product::find($id);
 
         if (!$request->ajax()) {
             return view('product.edit', compact('item', 'id'));
@@ -149,7 +148,7 @@ class ProductController extends Controller {
         }
 
         //Update item
-        $item = Item::find($id);
+        $item = Product::find($id);
 
         if ($item) {
 
@@ -189,22 +188,13 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        $item = Item::find($id);
-        $item->delete();
-
-        $product = Product::where("item_id", $id);
-        $product->delete();
+        $product = Product::delete();
         return back()->with('success', _lang('Information has been deleted sucessfully'));
     }
 
     public function get_product(Request $request, $id) {
-        $item = Item::find($id);
-
-        if ($item->item_type == 'product') {
-            echo json_encode(array("item" => $item, "product" => $item->product, "tax" => $item->product->tax, "available_quantity" => $item->product_stock->quantity));
-        } else if ($item->item_type == 'service') {
-            echo json_encode(array("item" => $item, "product" => $item->service, "tax" => $item->service->tax));
-        }
+        $item = Product::find($id);
+        echo json_encode(array("item" => $item, "product" => $item->product, "tax" => $item->product->tax, "available_quantity" => $item->product_stock->quantity));
     }
 
 }

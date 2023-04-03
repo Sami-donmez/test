@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactGroup extends Model
 {
-    use MultiTenant;
     /**
      * The table associated with the model.
      *

@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card">
+        <div class="card white_card card_height_100">
             <div class="card-header">
                 <h4 class="header-title">{{ _lang('Create User') }}</h4>
             </div>
@@ -38,51 +38,6 @@
                                 <div class="col-xl-9">
                                     <input type="password" class="form-control" name="password"
                                         value="{{ old('password') }}" required>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('Valid To') }}</label>
-                                <div class="col-xl-9">
-                                    <input type="text" class="form-control datepicker" name="valid_to"
-                                        value="{{ old('valid_to') }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('User Type') }}</label>
-                                <div class="col-xl-9">
-                                    <select class="form-control auto-select"
-                                        data-selected="{{ old('user_type') }}" name="user_type" required>
-                                        <option value="">{{ _lang('Select One') }}</option>
-                                        <option value="admin">{{ _lang('Admin') }}</option>
-                                        <option value="user">{{ _lang('User') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('Status') }}</label>
-                                <div class="col-xl-9">
-                                    <select class="form-control auto-select" data-selected="{{ old('status') }}"
-                                        name="status" required>
-                                        <option value="">{{ _lang('Select One') }}</option>
-                                        <option value="1">{{ _lang('Active') }}</option>
-                                        <option value="0">{{ _lang('In Active') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-form-label">{{ _lang('Membership Type') }}</label>
-                                <div class="col-xl-9">
-                                    <select class="form-control auto-select"
-                                        data-selected="{{ old('membership_type') }}" name="membership_type" required>
-                                        <option value="">{{ _lang('Select One') }}</option>
-                                        <option value="trial">{{ _lang('Trial') }}</option>
-                                        <option value="member">{{ _lang('Member') }}</option>
-                                    </select>
                                 </div>
                             </div>
 

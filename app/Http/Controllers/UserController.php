@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Validator;
 
@@ -16,7 +16,7 @@ class UserController extends Controller {
      * @return void
      */
     public function __construct() {
-        date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
+       // date_default_timezone_set(get_option('timezone', 'Asia/Dhaka'));
     }
 
     /**
@@ -25,11 +25,10 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $users = User::where('user_type','user')
-                    ->orWhere('user_type','admin')
-                    ->orderBy('id','desc')
+        $users = User::
+                    orderBy('id','desc')
                     ->get();
-        return view('backend.user.list', compact('users'));
+        return view('user.list', compact('users'));
     }
 
     /**
@@ -39,9 +38,9 @@ class UserController extends Controller {
      */
     public function create(Request $request) {
         if (!$request->ajax()) {
-            return view('backend.user.create');
+            return view('user.create');
         } else {
-            return view('backend.user.modal.create');
+            return view('user.modal.create');
         }
     }
 
@@ -55,10 +54,6 @@ class UserController extends Controller {
         $validator = Validator::make($request->all(), [
             'name'            => 'required|max:255',
             'email'           => 'required|email|unique:users|max:255',
-            'user_type'       => 'required',
-            'membership_type' => 'required_if:user_type,user',
-            'valid_to'        => 'required_if:user_type,user',
-            'status'          => 'required',
             'profile_picture' => 'nullable|image',
             'password'        => 'required|min:6',
         ]);
@@ -82,11 +77,8 @@ class UserController extends Controller {
 
         $user                    = new User();
         $user->name              = $request->input('name');
+        $user->title             = $request->input('title');
         $user->email             = $request->input('email');
-        $user->user_type         = $request->input('user_type');
-        $user->membership_type   = $request->input('membership_type');
-        $user->valid_to          = $request->input('valid_to');
-        $user->status            = $request->input('status');
         $user->profile_picture   = $profile_picture;
         $user->email_verified_at = date('Y-m-d H:i:s');
         $user->password          = Hash::make($request->password);
@@ -94,9 +86,6 @@ class UserController extends Controller {
         $user->save();
 
         //Prefix Output
-        $user->status          = user_status($user->status);
-        $user->user_type       = strtoupper($user->user_type);
-        $user->valid_to        = $user->validUntil();
         $user->profile_picture = '<img src="' . profile_picture($user->profile_picture) . '" class="thumb-sm rounded-circle mr-2">';
 
         if (!$request->ajax()) {
@@ -116,9 +105,9 @@ class UserController extends Controller {
     public function show(Request $request, $id) {
         $user = User::find($id);
         if (!$request->ajax()) {
-            return view('backend.user.view', compact('user', 'id'));
+            return view('user.view', compact('user', 'id'));
         } else {
-            return view('backend.user.modal.view', compact('user', 'id'));
+            return view('user.modal.view', compact('user', 'id'));
         }
 
     }
@@ -132,9 +121,9 @@ class UserController extends Controller {
     public function edit(Request $request, $id) {
         $user = User::find($id);
         if (!$request->ajax()) {
-            return view('backend.user.edit', compact('user', 'id'));
+            return view('user.edit', compact('user', 'id'));
         } else {
-            return view('backend.user.modal.edit', compact('user', 'id'));
+            return view('user.modal.edit', compact('user', 'id'));
         }
 
     }
@@ -154,10 +143,6 @@ class UserController extends Controller {
                 'email',
                 Rule::unique('users')->ignore($id),
             ],
-            'user_type'       => 'required',
-            'membership_type' => 'required_if:user_type,user',
-            'valid_to'        => 'required_if:user_type,user',
-            'status'          => 'required',
             'profile_picture' => 'nullable|image',
             'password'        => 'nullable|min:6',
         ]);
@@ -181,10 +166,6 @@ class UserController extends Controller {
         $user                  = User::find($id);
         $user->name            = $request->input('name');
         $user->email           = $request->input('email');
-        $user->user_type       = $request->input('user_type');
-        $user->membership_type = $request->input('membership_type');
-        $user->valid_to        = $request->input('valid_to');
-        $user->status          = $request->input('status');
 
         if ($request->hasfile('profile_picture')) {
             $user->profile_picture = $profile_picture;
@@ -196,12 +177,7 @@ class UserController extends Controller {
         $user->save();
 
         //Prefix Output
-        $user->status          = user_status($user->status);
-        $user->user_type       = strtoupper($user->user_type);
-        $user->valid_to        = $user->validUntil();
-        $user->profile_picture = '<img src="' . profile_picture($user->profile_picture) . '" class="thumb-sm rounded-circle mr-2">';
-
-        if (!$request->ajax()) {
+       if (!$request->ajax()) {
             return redirect()->route('users.index')->with('success', _lang('Updated Sucessfully'));
         } else {
             return response()->json(['result' => 'success', 'action' => 'update', 'message' => _lang('Updated Sucessfully'), 'data' => $user, 'table' => '#users_table']);
@@ -220,11 +196,5 @@ class UserController extends Controller {
         User::where('company_id',$user->id)->delete();
         $user->delete();
         return redirect()->route('users.index')->with('success', _lang('Deleted Sucessfully'));
-    }
-
-
-    public function membership_payments() {
-        $payments = \App\PaymentHistory::where('status','paid')->orderBy('id','desc')->paginate(10);
-        return view('backend.user.membership_payments',compact('payments'));
     }
 }
